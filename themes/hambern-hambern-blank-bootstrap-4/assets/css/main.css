@@ -13,3 +13,44 @@
      border-radius:35px;
      border:solid 1px black;
 }
+
+
+.proccess{
+     border-left:1px solid #5EA226;   
+}
+
+.proccessTitle{
+    font-size:24px;
+    font-weight: bold;
+    text-align:center;
+}
+
+span.blue {
+    font-size:52px;
+  background: #5178D0;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 15px;
+  text-align: center;
+  width: 1.6em; 
+}
+
+span.green {
+     font-size:52px;
+  background: #5EA226;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 15px;
+  text-align: center;
+  width: 1.6em; 
+}

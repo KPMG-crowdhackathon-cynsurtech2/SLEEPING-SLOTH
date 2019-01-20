@@ -1,11 +1,50 @@
 title = "claims"
-url = "/claims"
-layout = "default"
+url = "/claims/:id"
+layout = "claims"
 is_hidden = 0
 ==
 <?php
 function onStart(){
+    $this->addJs('assets/js/claims.js');
+     $uniqueID = $this->param('id');  
+     $this['uniqueID'] = $uniqueID;
+   //  $results = Db::select('select * from sleepingsloth_claimform_ WHERE unique_id="'.$uniqueID.'"');
+     
+        $results =  Db::select('select * from sleepingsloth_claimform_ WHERE unique_id= "'.$uniqueID.'"');
         
+     $this['claim'] = $results[0];
+        
+    dump($results[0]);
 }
 ?>
 ==
+<CENTER><h1>Claim Status</h1></CENTER>
+<div class="container" >
+
+ <div class="row">
+      <div class="col-sm-4 "><CENTER><span class="green">1</span></CENTER><div class="proccessTitle">Claim Report</div></div>
+      <div class="col-sm-8 proccess">
+        <label for="" class=" col-form-label">Incident Report</label>
+        <input type="text" class="form-control" value={{claim.incident_report}} disabled>
+   
+    
+        <label for="" class=" col-form-label">Insurer Number</label>
+        <input type="text" class="form-control" value={{claim.insurer_number}} disabled>
+       
+       
+        <label for="" class=" col-form-label">Fault</label>
+        
+        {% if claim.fault == 1 %}
+            <input type="text" class="form-control" value="Customer's fault" disabled>
+        {% else %}
+            <input type="text" class="form-control" value="Not customer's fault" disabled>
+        {% endif %}
+        
+
+      </div>
+    </div>
+    
+    
+    <hr />
+    
+</div>

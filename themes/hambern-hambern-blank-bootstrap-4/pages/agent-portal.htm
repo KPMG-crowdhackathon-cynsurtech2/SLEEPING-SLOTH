@@ -22,7 +22,7 @@ function onClaimSubmit(){
          $fault = 2;
      }
      
-    $uniqueID = uniqid('', true);
+    $uniqueID = uniqid('', false);
      
       $id = Db::table('sleepingsloth_claimform_')->insert(
         ['incident_report' => $incidentReport, 'insurer_number' => $insurerNumber, 'insurer_email' => $email, 'other_name' => $oponentName, 'other_email' => $oponentEmail, 'other_phone_number' => $oponentPhone, 'fault' => $fault, 'unique_id' => $uniqueID  ]
