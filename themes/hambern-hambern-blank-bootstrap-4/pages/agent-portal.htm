@@ -22,9 +22,21 @@ function onClaimSubmit(){
          $fault = 2;
      }
      
+    $uniqueID = uniqid('', true);
+     
       $id = Db::table('sleepingsloth_claimform_')->insert(
-        ['incident_report' => $incidentReport, 'insurer_number' => $insurerNumber, 'insurer_email' => $email, 'other_name' => $oponentName, 'other_email' => $oponentEmail, 'other_phone_number' => $oponentPhone, 'fault' => $fault  ]
+        ['incident_report' => $incidentReport, 'insurer_number' => $insurerNumber, 'insurer_email' => $email, 'other_name' => $oponentName, 'other_email' => $oponentEmail, 'other_phone_number' => $oponentPhone, 'fault' => $fault, 'unique_id' => $uniqueID  ]
     );
+    
+    // These variables are available inside the message as Twig
+        $vars = ['uniqueID' => $uniqueID, 'user' => 'Mary'];
+        
+        Mail::send('claim', $vars, function($message) {
+        
+            $message->to(  input('email'), '');
+            $message->subject('New Claim');
+        
+        });
  
 }
 ?>
@@ -116,8 +128,8 @@ function onClaimSubmit(){
                                     
 
     <div class="form-group row">
-      <div class="offset-sm-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="offset-sm-4 col-sm-8">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
       </div>
     </div>
   </form>
