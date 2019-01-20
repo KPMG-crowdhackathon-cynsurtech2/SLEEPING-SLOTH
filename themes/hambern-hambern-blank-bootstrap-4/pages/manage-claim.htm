@@ -24,6 +24,23 @@ function onAssessorComment(){
         Db::table('sleepingsloth_claimform_')
     ->where('id', $id)
     ->update(['status' => 1]);
+    
+     return Redirect::to('manage-claim/'.$id);
+}
+
+
+function onRequestReceipts(){
+
+    
+    
+     $id = $this->param('id');
+
+    
+        Db::table('sleepingsloth_claimform_')
+    ->where('id', $id)
+    ->update(['status' => 3]);
+    
+    return Redirect::to('manage-claim/'.$id);
 }
 ?>
 ==
@@ -148,6 +165,22 @@ function onAssessorComment(){
            <button type="submit" class="btn btn-primary btn-block">Complete</button>
            {% else %}  <button type="submit" class="btn btn-warning btn-block">Update</button> {% endif %}
        
+      </div>
+    </div>
+</form>
+
+<div class="col-sm-2 "><CENTER><span {% if record.status <= 2 %}class="grey"{% else %} class="green" {% endif %} style="font-size:32px;">4</span></CENTER></div>
+<div style="line-height:82px;"><h1>Receipts</h1></div>
+
+<form data-request="onRequestReceipts">
+   
+    <div class="form-group row">
+      <div class="col-sm-12">
+       {% if record.status <= 2 %}
+          <button type="submit" class="btn btn-primary btn-block">Request Receipts</button>
+       {% else %}
+           <p>Waiting for documents from the customer</p>
+       {% endif %}
       </div>
     </div>
 </form>
