@@ -85,6 +85,11 @@ function onFinishProcess(){
         <input type="text" class="form-control" value={{claim.insurer_number}} disabled>
        
        
+       
+       
+        <label for="" class=" col-form-label">Final Conclusion</label>
+        <p>{{claim.incident_conclusion}}</p>
+        
         <label for="" class=" col-form-label">Fault</label>
         
         {% if claim.fault == 1 %}
@@ -93,6 +98,7 @@ function onFinishProcess(){
             <input type="text" class="form-control" value="Not customer's fault" disabled>
         {% endif %}
         
+   
 
       </div>
     </div>
@@ -129,7 +135,7 @@ function onFinishProcess(){
     
     <hr />
     
-     <div class="row">
+  {#   <div class="row">
       <div class="col-sm-4 "><CENTER>
        {% if claim.status == 1 %}
           <span class="orange">3</span>
@@ -157,16 +163,16 @@ function onFinishProcess(){
     </div>
     
     
-    <hr />
+    <hr />#}
     
     <div class="row">
       <div class="col-sm-4 "><CENTER>
        {% if claim.status == 3 %}
-          <span class="orange">4</span>
+          <span class="orange">3</span>
        {% elseif claim.status > 3 %}
-           <span class="green">4</span>
+           <span class="green">3</span>
         {% else %}
-            <span class="grey">4</span>
+            <span class="grey">3</span>
         {% endif %}
       
       
@@ -177,7 +183,7 @@ function onFinishProcess(){
       
           {% if claim.status == 3 %}
           <div class="col-sm-8 proccessOrange">
-             <p>Uploading Done! Files were uploaded and are awaiting review...  </p>
+             <p>Upload files!  </p>
           {% if claim.receipt_uploads_status == 0 %}
              <label class="custom-file-upload bg-primary">
                                 <input type="file" class="fileUpload" data-id="{{uniqueID}}" />
@@ -218,7 +224,7 @@ function onFinishProcess(){
 
       </div>
       
-      {% if documents|length > 1 %}
+      {% if documents|length >= 1 %}
         
         {% if claim.receipt_uploads_status == 0 %}
               
@@ -243,11 +249,18 @@ function onFinishProcess(){
         <hr />
     
     <div class="row">
-      <div class="col-sm-4 "><CENTER><span class="grey">5</span></CENTER><div class="proccessTitle">Payment</div></div>
+      <div class="col-sm-4 "><CENTER><span {%if claim.status == 4 %}class="orange" {% else %} class="grey" {% endif %}>4</span></CENTER><div class="proccessTitle">Payment</div></div>
       <div class="col-sm-8 proccessGrey">
-        <label for="" class=" col-form-label">Currently Unavailable</label>
-        <p>This section will become available after step 2,3 and 4 are finished. This section is used to view the payment status for the current claim.</p>
+      {%if claim.status == 4 %}
+             <label for="" class=" col-form-label">Awaiting Payment</label>
+        </p>Once the insurance company pays, this will be set to done and the claim will be closed</p>
+ 
+ {% else %}
+       <label for="" class=" col-form-label">Currently Unavailable</label>
+        <p>This section will become available after step 2 and 3 are finished. This section is used to view the payment status for the current claim.</p>
+ 
 
+{% endif %}
       </div>
     </div>
     

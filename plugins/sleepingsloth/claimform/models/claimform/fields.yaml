@@ -45,3 +45,7 @@ fields:
         label: 'Receipt Upload Status'
         span: auto
         type: text
+    fault:
+        label: TexFaultt
+        span: auto
+        type: text
