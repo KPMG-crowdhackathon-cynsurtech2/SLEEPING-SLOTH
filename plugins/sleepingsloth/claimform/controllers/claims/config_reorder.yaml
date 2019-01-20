@@ -1,0 +1,4 @@
+title: Claims
+modelClass: Sleepingsloth\Claimform\Models\ClaimForm
+toolbar:
+    buttons: reorder_toolbar

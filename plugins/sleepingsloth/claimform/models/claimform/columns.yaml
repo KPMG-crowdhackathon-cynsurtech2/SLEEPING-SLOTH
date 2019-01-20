@@ -1,0 +1,28 @@
+columns:
+    id:
+        label: id
+        type: number
+    incident_report:
+        label: incident_report
+        type: text
+    insurer_number:
+        label: insurer_number
+        type: number
+    insurer_email:
+        label: insurer_email
+        type: text
+    other_name:
+        label: other_name
+        type: text
+    other_phone_number:
+        label: other_phone_number
+        type: number
+    other_email:
+        label: other_email
+        type: text
+    fault:
+        label: fault
+        type: text
+    status:
+        label: status
+        type: number

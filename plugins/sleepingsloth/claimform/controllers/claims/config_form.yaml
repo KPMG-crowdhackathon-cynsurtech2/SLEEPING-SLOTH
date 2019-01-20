@@ -1,0 +1,10 @@
+name: Claims
+form: $/sleepingsloth/claimform/models/claimform/fields.yaml
+modelClass: Sleepingsloth\Claimform\Models\ClaimForm
+defaultRedirect: sleepingsloth/claimform/claims
+create:
+    redirect: 'sleepingsloth/claimform/claims/update/:id'
+    redirectClose: sleepingsloth/claimform/claims
+update:
+    redirect: sleepingsloth/claimform/claims
+    redirectClose: sleepingsloth/claimform/claims

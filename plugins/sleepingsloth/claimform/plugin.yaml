@@ -4,3 +4,8 @@ plugin:
     author: SleepingSloth
     icon: oc-icon-newspaper-o
     homepage: ''
+navigation:
+    main-menu-item:
+        label: Claims
+        url: sleepingsloth/claimform/claims
+        icon: icon-file-text
