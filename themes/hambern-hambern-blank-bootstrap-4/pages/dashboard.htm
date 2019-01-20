@@ -32,7 +32,7 @@ pageNumber = "{{ :page }}"
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Insurer Number</th>
+      <th scope="col">Claim Date</th>
       <th scope="col">Insurer Email</th>
       <th scope="col">Status</th>
       <th scope="col">Manage</th>
@@ -44,7 +44,7 @@ pageNumber = "{{ :page }}"
 
             <tr>
               <th scope="row">{{r.id}}</th>
-              <td>{{r.insurer_number}}</td>
+              <td>{{r.incident_date}}</td>
               <td>{{r.insurer_email}}</td>
               {% if r.status == 0 %}
                   <td>Claim Submitted</td>
