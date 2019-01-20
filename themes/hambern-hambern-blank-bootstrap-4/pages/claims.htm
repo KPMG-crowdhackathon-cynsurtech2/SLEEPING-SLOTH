@@ -60,6 +60,8 @@ function onFinishProcess(){
     ->where('unique_id', $id)
     ->update(['receipt_uploads_status' => 1]);
     
+    return Redirect::to('claims/'.$id);
+    
    /* Db::table('sleepingsloth_claimform_')
     ->where('unique_id', $id)
     ->update(['status' => 4]);

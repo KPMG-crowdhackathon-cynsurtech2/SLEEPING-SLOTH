@@ -11,6 +11,15 @@ displayColumn = "id"
 notFoundMessage = "Record not found"
 ==
 <?php
+function onStart(){
+    $id = $this->param('id');
+    
+    $uniqueID =  Db::select('select unique_id from sleepingsloth_claimform_ WHERE id= "'.$id.'"');
+    
+     $documents =  Db::select('select * from documents WHERE unique_id= "'.$uniqueID[0]->unique_id.'"');
+     $this['documents'] = $documents;
+}
+
 function onAssessorComment(){
     $insuranceAssessorComments = input('insuranceAssessorComments');
     
@@ -41,6 +50,31 @@ function onRequestReceipts(){
     ->update(['status' => 3]);
     
     return Redirect::to('manage-claim/'.$id);
+}
+
+function onAcceptReceipts(){
+
+    
+    
+     $id = $this->param('id');
+
+    
+        Db::table('sleepingsloth_claimform_')
+    ->where('id', $id)
+    ->update(['status' => 4]);
+    
+    return Redirect::to('manage-claim/'.$id);
+}
+
+function onRejectReceipts(){
+    
+      $id = $this->param('id');
+        Db::table('sleepingsloth_claimform_')
+    ->where('id', $id)
+    ->update(['receipt_uploads_status' => 0]);
+    
+      return Redirect::to('manage-claim/'.$id);
+      
 }
 ?>
 ==
@@ -172,15 +206,59 @@ function onRequestReceipts(){
 <div class="col-sm-2 "><CENTER><span {% if record.status <= 2 %}class="grey"{% else %} class="green" {% endif %} style="font-size:32px;">4</span></CENTER></div>
 <div style="line-height:82px;"><h1>Receipts</h1></div>
 
-<form data-request="onRequestReceipts">
+
    
     <div class="form-group row">
       <div class="col-sm-12">
        {% if record.status <= 2 %}
-          <button type="submit" class="btn btn-primary btn-block">Request Receipts</button>
-       {% else %}
+          <form data-request="onRequestReceipts"><button type="submit" class="btn btn-primary btn-block">Request Receipts</button></form>
+       {% elseif record.receipt_uploads_status == 0 %}
            <p>Waiting for documents from the customer</p>
+        {% elseif record.receipt_uploads_status == 1 %}
+              {% for doc in documents %}
+        
+                <div id='' class='column photo' style="float:left; margin-top:6px;">
+                    <p class='imglist' >
+                        <a href=''  data-fancybox='' data-type='image'>
+                            <img src='{{doc.document}}' width='200' />
+                        </a> 
+                    </p>
+                </div>
+            {% endfor %}
+            
+            
+            {% if record.status <4 %}
+               <form data-request="onAcceptReceipts">
+               
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                  
+                      <button type="submit" class="btn btn-success btn-block">Accept Receipts</button>
+                  
+                  </div>
+                </div>
+            </form>
+            
+                     
+         <form data-request="onRejectReceipts">
+               
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                  
+                      <button type="submit" class="btn btn-danger btn-block">Reject Receipts</button>
+                  
+                  </div>
+                </div>
+            </form>
+            
+            {% elseif record.status >= 4 %}
+                <button class='btn btn-block btn-secondary' disabled>All files were accepted!</button>
+            {% endif %}
+      
+
+
+    
+            
        {% endif %}
       </div>
     </div>
-</form>
