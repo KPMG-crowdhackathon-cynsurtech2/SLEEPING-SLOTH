@@ -1,0 +1,15 @@
+.left{
+     float:left;   
+}
+
+.right{
+    float:right;
+}
+
+.menu{
+     width:40%;
+     margin:5%;
+     height:200px;
+     border-radius:35px;
+     border:solid 1px black;
+}

@@ -1,0 +1,103 @@
+title = "Agent Portal"
+url = "/agent-portal"
+layout = "default"
+is_hidden = 0
+==
+<form data-request="onFormSubmit" data-request-update="mypartial: '#myDiv'">
+
+    <!-- Input two values -->
+    <input name="value1"> + <input name="value2">
+
+    <!-- Action button -->
+    <button type="submit">Calculate</button>
+
+</form>
+
+<div class="container">
+<h1>Claims Form</h1>
+  <form>
+  
+     <div class="form-group row">
+      <label for="comment" class="col-sm-2 col-form-label">Incident Report</label>
+      <div class="col-sm-10">
+     
+
+  <textarea class="form-control" rows="15" id="comment"></textarea>
+
+      </div>
+    </div>
+    
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label">Insurer Number</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="insurerNumber" placeholder="">
+      </div>
+    </div>
+    
+    
+    <div class="form-group row">
+      <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Email</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+      </div>
+    </div>
+
+<hr />
+<h3>{{"Opponent"|_}}</h3>
+
+
+ <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label">{{"Opponent Full Name"|_}}</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="oponentName" placeholder="">
+      </div>
+    </div>
+    
+     <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label">{{"Opponent Email"|_}}</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="oponentEmail" placeholder="">
+      </div>
+    </div>
+
+ <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label">{{"Opponent Phone Number"|_}}</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="oponentPhone" placeholder="">
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+    <fieldset class="form-group row">
+      <legend class="col-form-legend col-sm-2">Who's fault was it?</legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1">
+                Customer's Fault
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+            {{"Opponents Fault"|_}}
+          </label>
+        </div>
+
+      </div>
+    </fieldset>
+    
+    
+    <div class="form-group row">
+      <div class="offset-sm-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
