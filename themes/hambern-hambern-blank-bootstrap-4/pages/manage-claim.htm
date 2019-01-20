@@ -2,4 +2,115 @@ title = "manage-claim"
 url = "/manage-claim/:id"
 layout = "default"
 is_hidden = 0
+
+[builderDetails claim]
+modelClass = "Sleepingsloth\Claimform\Models\ClaimForm"
+identifierValue = "{{ :id }}"
+modelKeyColumn = "id"
+displayColumn = "id"
+notFoundMessage = "Record not found"
 ==
+{% set record = claim.record %}
+{% set displayColumn = claim.displayColumn %}
+{% set notFoundMessage = claim.notFoundMessage %}
+
+<div class="container" >
+ <div class="col-sm-2 "><CENTER><span class="green" style="font-size:32px;">1</span></CENTER></div>
+<div style="margin-top:82px; line-height:82px;"><h1>Claims Form</h1></div>
+  <form data-request="onClaimSubmit">
+  
+     <div class="form-group row">
+      <label for="comment" class="col-sm-12 col-form-label">Incident Report</label>
+      <div class="col-sm-12">
+     
+
+  <textarea class="form-control" rows="15" name="incidentReport">{{record.incident_report}}</textarea>
+
+      </div>
+    </div>
+    
+    <div class="form-group row">
+      <label for="" class="col-sm-4 col-form-label">Insurer Number</label>
+      <div class="col-sm-8">
+        <input type="number" class="form-control" name="insurerNumber" placeholder="" value="{{record.insurer_number}}">
+      </div>
+    </div>
+    
+    
+    <div class="form-group row">
+      <label for="inputEmail3" class="col-sm-4 col-form-label">Customer Email</label>
+      <div class="col-sm-8">
+        <input type="email" class="form-control" name="email" placeholder="" value="{{record.insurer_email}}">
+      </div>
+    </div>
+
+<hr />
+<h3>{{"Opponent"|_}}</h3>
+
+
+ <div class="form-group row">
+      <label for="" class="col-sm-4 col-form-label">{{"Opponent Full Name"|_}}</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="oponentName" placeholder=""value="{{record.other_name}}">
+      </div>
+    </div>
+    
+     <div class="form-group row">
+      <label for="" class="col-sm-4 col-form-label">{{"Opponent Email"|_}}</label>
+      <div class="col-sm-8">
+        <input type="email" class="form-control" name="oponentEmail" placeholder=""value="{{record.other_email}}">
+      </div>
+    </div>
+
+ <div class="form-group row">
+      <label for="" class="col-sm-4 col-form-label">{{"Opponent Phone Number"|_}}</label>
+      <div class="col-sm-8">
+        <input type="number" class="form-control" name="oponentPhone" placeholder=""value="{{record.other_phone_number}}">
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+    <fieldset class="form-group row">
+      <legend class="col-form-legend col-sm-4">Who's fault was it?</legend>
+      <div class="col-sm-8">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" {% if record.fault == 1 %}checked{% endif %}>
+                Customer's Fault
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" {% if record.fault == 2 %}checked{% endif %}>
+            Opponent's Fault
+          </label>
+        </div>
+
+      </div>
+    </fieldset>
+    
+              
+              <hr />
+
+                                    
+                                    
+
+    <div class="form-group row">
+      <div class="offset-sm-4 col-sm-8">
+        <button type="submit" class="btn btn-primary btn-block">Update</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<hr />
+
+<div class="col-sm-2 "><CENTER><span class="grey" style="font-size:32px;">2</span></CENTER></div>
+<div style="line-height:82px;"><h1>Insurance Assessor</h1></div>
