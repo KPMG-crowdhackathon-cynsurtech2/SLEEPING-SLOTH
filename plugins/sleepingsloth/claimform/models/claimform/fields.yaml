@@ -1,0 +1,30 @@
+fields:
+    incident_report:
+        label: 'Incident Report'
+        size: huge
+        span: full
+        type: textarea
+    insurer_number:
+        label: 'Insurer Number'
+        span: auto
+        type: number
+    insurer_email:
+        label: 'Customer Email'
+        span: auto
+        type: text
+    section1:
+        label: Opponent
+        span: full
+        type: section
+    other_name:
+        label: 'Opponent - Full Name'
+        span: auto
+        type: text
+    other_email:
+        label: 'Opponent - Email'
+        span: auto
+        type: text
+    other_phone_number:
+        label: 'Opponent Email'
+        span: auto
+        type: number
