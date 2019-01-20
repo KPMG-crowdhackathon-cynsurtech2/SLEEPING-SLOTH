@@ -28,3 +28,7 @@ fields:
         label: 'Opponent Email'
         span: auto
         type: number
+    unique_id:
+        label: 'Unique ID'
+        span: auto
+        type: text
