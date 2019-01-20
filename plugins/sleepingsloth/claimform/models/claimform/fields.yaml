@@ -32,3 +32,16 @@ fields:
         label: 'Unique ID'
         span: auto
         type: text
+    assessor_input:
+        label: 'Assessor Input'
+        size: ''
+        span: full
+        type: textarea
+    status:
+        label: Status
+        span: auto
+        type: number
+    receipt_uploads_status:
+        label: 'Receipt Upload Status'
+        span: auto
+        type: text

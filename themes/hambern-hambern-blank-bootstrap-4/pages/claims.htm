@@ -14,7 +14,56 @@ function onStart(){
         
      $this['claim'] = $results[0];
         
-    dump($results[0]);
+   // dump($results[0]);
+    
+      $documents =  Db::select('select * from documents WHERE unique_id= "'.$uniqueID.'"');
+       $this['documents'] = $documents;
+      // dump($documents);
+}
+
+
+
+function onSaveImage(){
+    $id = $_POST['id'];
+    $photo = $_POST['base64'];
+    
+    
+    try {
+        //Db::connection('hssData')->insert("INSERT INTO photos(evaluationFormId,incidentDetailsID, photo) VALUES(?, ?, ?)",[$evaluationformid,$incidentID,$photo]);
+        
+        $id = Db::table('documents')->insert(
+        [
+            'unique_id' => $id, 
+            'document' => $photo  
+        ]
+    );
+    
+        
+                    
+        //insert get ID is not working so we get the latest inserted id in the photos table. 
+        //In theore this will not cause any problems
+   //    $savedID = Db::connection('hssData')->select('select max(id) as id FROM photos');
+  //     $savedID[0]->incidentDetailsID = $incidentID;
+   // return $savedID;
+        
+  } catch (\PDOException $e) {
+        return $e;
+    } 
+}
+
+function onFinishProcess(){
+ 
+ $id = $this->param('id');
+
+    
+    Db::table('sleepingsloth_claimform_')
+    ->where('unique_id', $id)
+    ->update(['receipt_uploads_status' => 1]);
+    
+   /* Db::table('sleepingsloth_claimform_')
+    ->where('unique_id', $id)
+    ->update(['status' => 4]);
+    */
 }
 ?>
 ==
@@ -109,20 +158,92 @@ function onStart(){
     <hr />
     
     <div class="row">
-      <div class="col-sm-4 "><CENTER><span class="grey">4</span></CENTER><div class="proccessTitle">Receipts</div></div>
-      <div class="col-sm-8 proccessGrey">
-        <label for="" class=" col-form-label">Currently Anavailable</label>
-        <p>This section will become available after step 2 and 3 are finished. Here you will be able to upload the receipts of the autorepairs</p>
+      <div class="col-sm-4 "><CENTER>
+       {% if claim.status == 3 %}
+          <span class="orange">4</span>
+       {% elseif claim.status > 3 %}
+           <span class="green">4</span>
+        {% else %}
+            <span class="grey">4</span>
+        {% endif %}
+      
+      
+      
+      
+      
+      </CENTER><div class="proccessTitle">Receipts</div></div>
+      
+          {% if claim.status == 3 %}
+          <div class="col-sm-8 proccessOrange">
+             <p>Uploading Done! Files were uploaded and are awaiting review...  </p>
+          {% if claim.receipt_uploads_status == 0 %}
+             <label class="custom-file-upload bg-primary">
+                                <input type="file" class="fileUpload" data-id="{{uniqueID}}" />
+                                <i class="fa fa-upload"  aria-hidden="true"></i> Take/Upload photo
+                                            </label>
+          {% endif %}                                  
+        
+          
+          
+          
+          
+       {% elseif claim.status > 3 %}
+           <div class="col-sm-8 proccess">
+           <p>Done!  </p>
+           
+        {% else %}
+           <div class="col-sm-8 proccessGrey">
+            <label for="" class=" col-form-label">Currently Unavailable</label>
+            <p> Here you will be able to upload the receipts of the autorepairs</p>
+        {% endif %}
+      
+       <div id="photoDisplayRow" class="row">
+         
+            {% for doc in documents %}
+        
+                <div id='' class='column photo' style="float:left; margin-top:6px;">
+                    <p class='imglist' >
+                        <a href=''  data-fancybox='' data-type='image'>
+                            <img src='{{doc.document}}' width='200' />
+                        </a> 
+                    </p>
+                </div>
+            {% endfor %}
+            
+            
+    
+        
 
       </div>
+      
+      {% if documents|length > 1 %}
+        
+        {% if claim.receipt_uploads_status == 0 %}
+              
+            <form data-request="onFinishProcess">
+               
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                  
+                      <button type="submit" class="btn btn-success btn-block">Finish Process</button>
+                  
+                  </div>
+                </div>
+            </form>
+
+        {% endif %}
+             
+      {% endif %}
+
+
     </div>
-    
+    <div class="clearfix"></div>
         <hr />
     
     <div class="row">
       <div class="col-sm-4 "><CENTER><span class="grey">5</span></CENTER><div class="proccessTitle">Payment</div></div>
       <div class="col-sm-8 proccessGrey">
-        <label for="" class=" col-form-label">Currently Anavailable</label>
+        <label for="" class=" col-form-label">Currently Unavailable</label>
         <p>This section will become available after step 2,3 and 4 are finished. This section is used to view the payment status for the current claim.</p>
 
       </div>
