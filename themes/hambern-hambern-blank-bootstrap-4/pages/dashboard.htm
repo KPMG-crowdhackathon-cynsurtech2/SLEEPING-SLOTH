@@ -1,0 +1,68 @@
+title = "dashboard"
+url = "/dashboard"
+layout = "default"
+is_hidden = 0
+
+[builderList claims]
+modelClass = "Sleepingsloth\Claimform\Models\ClaimForm"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+<h1>Dashboard</h1>
+<h4>Claims</h4>
+
+{% set records = claims.records %}
+{% set displayColumn = claims.displayColumn %}
+{% set noRecordsMessage = claims.noRecordsMessage %}
+{% set detailsPage = claims.detailsPage %}
+{% set detailsKeyColumn = claims.detailsKeyColumn %}
+{% set detailsUrlParameter = claims.detailsUrlParameter %}
+
+
+
+
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Insurer Number</th>
+      <th scope="col">Insurer Email</th>
+      <th scope="col">Status</th>
+      <th scope="col">Manage</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for r in records %}
+     
+
+            <tr>
+              <th scope="row">{{r.id}}</th>
+              <td>{{r.insurer_number}}</td>
+              <td>{{r.insurer_email}}</td>
+              {% if r.status == 0 %}
+                  <td>Claim Submitted</td>
+              {% elseif r.status == 1 %}
+                  <td>Under Review</td>
+              {% elseif r.status == 2 %}
+                  <td>Quotes & Repairs</td>
+              {% elseif r.status == 3 %}
+                  <td>Receipts</td>
+              {% elseif r.status == 4 %}
+                   <td>Payment</td>
+              {% else %}
+               <td>Closed</td>
+              {% endif %}
+             <td> <a href="{{ 'manage-claim'|page({ id: r.id }) }}"><button class="btn btn-primary">view</button></a></td>
+            </tr>
+    
+    {% endfor %}
+   
+  </tbody>
+</table>
