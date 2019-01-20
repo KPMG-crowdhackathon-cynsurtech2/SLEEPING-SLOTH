@@ -65,9 +65,10 @@ function onStart(){
         <label for="" class=" col-form-label"><b>Insurance Assessor</b></label>
         <p>The task of the Insurance Assessor is to examine your situation, your loss and its value. They will then advise your insurance company who will make a decision on your claim. In some cases, your insurer may ask engineers, tradespeople or other experts to provide specialist advice. All of this is aimed at determining how the claim will be managed.</p>
         
+         {% if claim.status != 0 %}
         <b>Decision</b>
         <textarea class="form-control" rows="5" name="" disabled>{{claim.assessor_input}}</textarea>
-   
+   {% endif %}
     
        
         
@@ -78,10 +79,28 @@ function onStart(){
     <hr />
     
      <div class="row">
-      <div class="col-sm-4 "><CENTER><span class="grey">3</span></CENTER><div class="proccessTitle">Quotes & Repairs</div></div>
-      <div class="col-sm-8 proccessGrey">
-        <label for="" class=" col-form-label">Currently Anavailable</label>
-        <p>This section will become available after step 2 is finished. Here you will see the estimated costs for the repairs...............find out the process of the claims</p>
+      <div class="col-sm-4 "><CENTER>
+       {% if claim.status == 1 %}
+          <span class="orange">3</span>
+       {% elseif claim.status > 1 %}
+           <span class="green">3</span>
+        {% else %}
+            <span class="grey">3</span>
+        {% endif %}
+      </CENTER><div class="proccessTitle">Quotes & Repairs</div></div>
+      
+         {% if claim.status == 1 %}
+             <div class="col-sm-8 proccessOrange">
+       {% elseif claim.status > 1 %}
+          <div class="col-sm-8 proccess">
+        {% else %}
+            <div class="col-sm-8 proccessGrey">
+            <label for="" class=" col-form-label">Currently Unavailable</label>
+        {% endif %}
+        
+      
+        
+        <p>Here you will see the estimated costs for the repairs...............find out the process of the claims</p>
 
       </div>
     </div>
