@@ -50,10 +50,23 @@ function onStart(){
     <hr />
     
      <div class="row">
-      <div class="col-sm-4 "><CENTER><span class="orange">2</span></CENTER><div class="proccessTitle">Under Review by the Insurance Assessor</div></div>
-      <div class="col-sm-8 proccessOrange">
-        <label for="" class=" col-form-label">Insurance Assessor</label>
+      <div class="col-sm-4 ">
+          <CENTER>
+                  {% if claim.status == 0 %}
+                       <span class="orange">2</span>
+                       </CENTER><div class="proccessTitle">Under Review by the Insurance Assessor</div>
+                   {% else %}
+                       <span class="green">2</span>
+                       </CENTER><div class="proccessTitle">Insurance Assessor</div>
+                   {% endif %}
+              
+            </div>
+      <div class="col-sm-8 {% if claim.status == 0 %}proccessOrange {% else %}proccess{% endif %}">
+        <label for="" class=" col-form-label"><b>Insurance Assessor</b></label>
         <p>The task of the Insurance Assessor is to examine your situation, your loss and its value. They will then advise your insurance company who will make a decision on your claim. In some cases, your insurer may ask engineers, tradespeople or other experts to provide specialist advice. All of this is aimed at determining how the claim will be managed.</p>
+        
+        <b>Decision</b>
+        <textarea class="form-control" rows="5" name="" disabled>{{claim.assessor_input}}</textarea>
    
     
        

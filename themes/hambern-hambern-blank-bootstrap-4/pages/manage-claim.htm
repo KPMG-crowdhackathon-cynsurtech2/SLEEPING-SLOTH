@@ -10,6 +10,23 @@ modelKeyColumn = "id"
 displayColumn = "id"
 notFoundMessage = "Record not found"
 ==
+<?php
+function onAssessorComment(){
+    $insuranceAssessorComments = input('insuranceAssessorComments');
+    
+    
+     $id = $this->param('id');
+     
+    Db::table('sleepingsloth_claimform_')
+    ->where('id', $id)
+    ->update(['assessor_input' => $insuranceAssessorComments]);
+    
+        Db::table('sleepingsloth_claimform_')
+    ->where('id', $id)
+    ->update(['status' => 1]);
+}
+?>
+==
 {% set record = claim.record %}
 {% set displayColumn = claim.displayColumn %}
 {% set notFoundMessage = claim.notFoundMessage %}
@@ -110,7 +127,7 @@ notFoundMessage = "Record not found"
 
     <div class="form-group row">
       <div class="offset-sm-4 col-sm-8">
-        <button type="submit" class="btn btn-primary btn-block">Update</button>
+        <button type="submit" class="btn btn-warning btn-block">Update</button>
       </div>
     </div>
   </form>
@@ -119,5 +136,18 @@ notFoundMessage = "Record not found"
 
 <hr />
 
-<div class="col-sm-2 "><CENTER><span class="grey" style="font-size:32px;">2</span></CENTER></div>
+<div class="col-sm-2 "><CENTER><span {% if record.status == 0 %}class="grey"{% else %} class="green" {% endif %} style="font-size:32px;">2</span></CENTER></div>
 <div style="line-height:82px;"><h1>Insurance Assessor</h1></div>
+
+<form data-request="onAssessorComment">
+    <textarea class="form-control" style="margin-top:22px;" rows="15" name="insuranceAssessorComments">{{record.assessor_input}}</textarea>
+
+    <div class="form-group row">
+      <div class="offset-sm-4 col-sm-8">
+       {% if record.status == 0 %} 
+           <button type="submit" class="btn btn-primary btn-block">Complete</button>
+           {% else %}  <button type="submit" class="btn btn-warning btn-block">Update</button> {% endif %}
+       
+      </div>
+    </div>
+</form>
